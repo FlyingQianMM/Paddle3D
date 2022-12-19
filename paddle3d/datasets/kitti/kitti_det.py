@@ -91,6 +91,7 @@ class KittiDetDataset(BaseDataset):
                             samples,
                             int(len(samples) * (sampling_ratio - 1.))).tolist())
             self.data = resampling_data
+        self.use_road_plane = use_road_plane
 
     def __len__(self):
         return len(self.data)
@@ -197,3 +198,11 @@ class KittiDetDataset(BaseDataset):
             classmap={i: name
                       for i, name in enumerate(self.class_names)},
             indexes=self.data)
+
+    @property
+    def name(self) -> str:
+        return "KITTI"
+
+    @property
+    def labels(self) -> List[str]:
+        return self.class_names
